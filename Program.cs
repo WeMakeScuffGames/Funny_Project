@@ -9,15 +9,16 @@ namespace Funny_Project
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("-=   Welcom to XXXXX   =-");
+            WriteCentered("-=Welcom to XXXXX=-");
 
-            Console.WriteLine("\n\n-=   Press any key to start   =-");
+            WriteCentered("-=Press any key to start=-");
             while (true)
             {
                 var input = Console.ReadKey(true);
                 if (input.Key != ConsoleKey.Escape)
                 {
-                    Console.WriteLine("             Starting...\n");
+                    Console.Clear();
+                    WriteAtBottom("Starting. . .");
                     loading();
                     Main_menu();
                     break;
@@ -27,21 +28,45 @@ namespace Funny_Project
                     Console.WriteLine("huh???");
                 }
             }
-            
+
+            static void WriteCentered(string text)
+            {
+                int windowWidth = Console.WindowWidth;
+                int textLength = text.Length;
+                int leftPadding = Math.Max((windowWidth - textLength) / 2, 0);
+                Console.SetCursorPosition(leftPadding, Console.CursorTop);
+                Console.WriteLine(text);
+                Console.WriteLine();
+            }
+
+            static void WriteAtBottom(string text)
+            {
+                int windowWidth = Console.WindowWidth;
+                int windowHeight = Console.WindowHeight;
+                int textLength = text.Length;
+                int leftPadding = Math.Max((windowWidth - textLength) / 2, 0);
+
+                // Set cursor to the last line
+                Console.SetCursorPosition(leftPadding, windowHeight - 1);
+                Console.WriteLine(text);
+            }
+
+
             static void loading()
             {
-                for (int i = 0; i < 10; i++)
+                for (int i = 0; i < 50; i++)
                 {
                     Console.Write(". ");
-                    System.Threading.Thread.Sleep(500);
+                    System.Threading.Thread.Sleep(50);
                 }
             }
 
             static void Credits()
             {
+                Console.Clear();
                 for (int i = 0; i < 100; i++)
                 {
-                    Console.WriteLine("\nJust Iniw ");
+                    WriteCentered("Just Iniw");
                     if (Console.KeyAvailable)
                     {
                         Console.ReadKey(true); // Clear the key
@@ -51,14 +76,15 @@ namespace Funny_Project
                 }
             }
 
-            static void menu_options_display() 
+            static void menu_options_display()
             {
-                Console.WriteLine("\n         -=Main Menu=-\n");
-                Console.WriteLine("         1. New Game \n");
-                Console.WriteLine("         2. Continue \n");
-                Console.WriteLine("         3. Settings \n");
-                Console.WriteLine("         4. Credits \n");
-                Console.WriteLine("         5. Exit \n");
+                Console.Clear();
+                WriteCentered("-=Main Menu=-\n");
+                WriteCentered("1. New Game");
+                WriteCentered("2. Continue");
+                WriteCentered("3. Settings");
+                WriteCentered("4. Credits");
+                WriteCentered("5. Exit");
             }
 
             static void Main_menu ()
@@ -73,7 +99,6 @@ namespace Funny_Project
                     switch (keypress.Key)
                     {
                         case ConsoleKey.D1:
-                            Console.WriteLine("\nStarting a new game...");
                             game.New_Game();
 
                             break;

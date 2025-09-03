@@ -6,14 +6,35 @@ using System.Threading.Tasks;
 
 namespace Funny_Project
 {
-    public partial class GmaeWorkings
+    public partial class GmaeWorkings : Dialouge
     {
-
 
         public void New_Game()
         {
-            Console.WriteLine("Starting a New Game...");
-            
+            var Dialouge = new Dialouge();
+            Console.Clear();
+            WriteAtBottomRight("Starting a New Game...");
+            loading();
+            Dialouge.Starting_NPC();
+        }
+
+        static void loading()
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                Console.Write(". ");
+                System.Threading.Thread.Sleep(50);
+            }
+        }
+        static void WriteAtBottomRight(string text)
+        {
+            int windowHeight = Console.WindowHeight;
+            int textLength = text.Length;
+            int leftPadding = 0; // Align to the left edge
+
+            // Set cursor to the last line
+            Console.SetCursorPosition(leftPadding, windowHeight - 1);
+            Console.WriteLine(text);
         }
     }
 }
