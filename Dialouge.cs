@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,13 +11,21 @@ namespace Funny_Project
     {
         public string starting_npc_name = "Jackass";
         public string dialouge;
+        public string player_name;
+        
         public void Starting_NPC ()
         {
-            Dialouge_sequence($"{starting_npc_name}: Hello, traveler! Welcome to our village.");
+            
+            Dialouge_sequence($"{starting_npc_name}: Hello, traveler!");
+            Dialouge_sequence($"{starting_npc_name}: It seems you finally awake");
+            Dialouge_sequence($"{starting_npc_name}: By the way what is your name");
 
+            string input_name = Player.Players_Name();
+            Player player = new Player(input_name);
 
-            Dialouge_sequence($"{starting_npc_name}: Feel free to explore and talk to the locals.");
-            Dialouge_sequence($"{starting_npc_name}: If you need any help, just ask!");
+            Dialouge_sequence($"{starting_npc_name}: Hmm, {player.Name} what a nice name.");
+            Dialouge_sequence($"{starting_npc_name}: So {player.Name} where are you heading to right now?");
+
         }
 
         public void Dialouge_sequence(string Dialouge_text)
@@ -55,7 +63,7 @@ namespace Funny_Project
             Console.CursorVisible = true; // Show the cursor again
         }
 
-        static void WriteAtBottomLeft(string text)
+        public void WriteAtBottomLeft(string text)
         {
             int windowHeight = Console.WindowHeight;
             int textLength = text.Length;
@@ -65,6 +73,19 @@ namespace Funny_Project
             Console.SetCursorPosition(leftPadding, windowHeight - 1);
             Console.WriteLine(text);
         }
+
+        public void WriteAtBottom(string text)
+        {
+            int windowWidth = Console.WindowWidth;
+            int windowHeight = Console.WindowHeight;
+            int textLength = text.Length;
+            int leftPadding = Math.Max((windowWidth - textLength) / 2, 0);
+
+            // Set cursor to the last line
+            Console.SetCursorPosition(leftPadding, windowHeight - 1);
+            Console.WriteLine(text);
+        }
+
 
         public static void PrintAnimated(string text, int delayMs = 30, bool atBottom = false)
         {
@@ -83,6 +104,5 @@ namespace Funny_Project
             }
             Console.WriteLine();
         }
-
     }
 }
