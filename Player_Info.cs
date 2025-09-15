@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Funny_Project.Dialouges;
 
 namespace Funny_Project
 {
-        internal class Player
+    internal class Player
         {
 
         // Property to store the player's name

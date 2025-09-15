@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Funny_Project.Dialouges;
 
 namespace Funny_Project
 {
@@ -35,6 +36,14 @@ namespace Funny_Project
             // Set cursor to the last line
             Console.SetCursorPosition(leftPadding, windowHeight - 1);
             Console.WriteLine(text);
+        }
+
+        public void Continue_Game()
+        {
+            Console.Clear();
+            WriteAtBottomRight("Continuing your last game...");
+            loading();
+            // Load game logic here
         }
     }
 }
