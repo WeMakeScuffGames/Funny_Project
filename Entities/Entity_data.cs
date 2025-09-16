@@ -55,6 +55,13 @@ namespace Funny_Project.Player_Data
                 return $"{Name} attacked {targetMob.Name}. {targetMob.Name}'s health: {targetMob.Health}";
             }
         }
+        public void Attack(Player target)
+        {
+            target.Health -= this.Damage;
+            if (target.Health < 0) target.Health = 0;
+
+            Console.WriteLine($"{Name} attacked {target.Name}! {target.Name}'s health: {target.Health}");
+        }
 
         // ------------ Enemies --------------------
 
@@ -99,6 +106,13 @@ namespace Funny_Project.Player_Data
             Console.WriteLine($"{name} smashes the ground, stunning enemies!");
             damage += 10;  // adds bonus damage for the attack
         }
+
+        // ---------------- Info ----------------
+        public string Info()
+        {
+            return $"{Name} - HP: {Health}, DMG: {Damage}, LVL: {Level}, XP: {Current_XP}/{Max_XP}";
+        }
+
     }
 
 
@@ -106,9 +120,9 @@ namespace Funny_Project.Player_Data
     public class Player
     {
         public string Name { get; private set; }
-        public int Health { get; internal set; }
+        public float Health { get; set; }
 
-        public Entity player_entity;
+        public Entity player_entity { get; private set; }
         public Player(string name)
         {
             Name = name;
@@ -121,6 +135,11 @@ namespace Funny_Project.Player_Data
             dialouge.WriteAtBottom("Enter Your name: ");
             string p_name = Console.ReadLine();
             return p_name;
+        }
+
+        public void Attack(Entity target)
+        {
+            player_entity.Attack(target);
         }
     }
 }
