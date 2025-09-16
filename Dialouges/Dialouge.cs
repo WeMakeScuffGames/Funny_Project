@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Funny_Project.Battles;
+using Funny_Project.Engine;
 using Funny_Project.Player_Data;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -10,7 +12,7 @@ namespace Funny_Project.Dialouges
 {
     public partial class Dialouge
     {
-        public string starting_npc_name = "Jackass";
+        public string starting_npc_name = "Bizzn The Merchant";
         public string dialouge;
         public string player_name;
 
@@ -21,10 +23,14 @@ namespace Funny_Project.Dialouges
                 $"{starting_npc_name}: Hello, traveler!",
                 $"{starting_npc_name}: It seems you finally awake",
                 $"{starting_npc_name}: By the way what is your name",
-                $"{starting_npc_name}: Hmm, {{player_name}} what a nice name."
+                $"{starting_npc_name}: Hmm, {{player_name}} what a nice name.",
+                $"{starting_npc_name}: {{player_name}} we have been ambush",
+                ""
             };
 
             Player player = null;
+            
+
 
             for (int i = 0; i < dialogues.Length; i++)
             {
@@ -33,7 +39,15 @@ namespace Funny_Project.Dialouges
                     string input_name = Player.Players_Name();
                     player = new Player(input_name);
                 }
-
+                else if (i == 5) 
+                {
+                    First_battle first_Battle = new First_battle(player);
+                    first_Battle.Start();
+                    Credits();
+                    menu_options_display();
+                    break;
+                }
+                
                 string line = dialogues[i];
 
                 // Replace placeholder after player is created
@@ -103,6 +117,16 @@ namespace Funny_Project.Dialouges
             Console.WriteLine(text);
         }
 
+        static void WriteCentered(string text)
+        {
+            int windowWidth = Console.WindowWidth;
+            int textLength = text.Length;
+            int leftPadding = Math.Max((windowWidth - textLength) / 2, 0);
+            Console.SetCursorPosition(leftPadding, Console.CursorTop);
+            Console.WriteLine(text);
+            Console.WriteLine();
+        }
+
 
         public static void PrintAnimated(string text, int delayMs = 30, bool atBottom = false)
         {
@@ -128,6 +152,31 @@ namespace Funny_Project.Dialouges
             {
                 writer.WriteLine(text);
             }
+        }
+
+        static void Credits()
+        {
+            Console.Clear();
+            for (int i = 0; i < 100; i++)
+            {
+                WriteCentered("Just Iniw");
+                if (Console.KeyAvailable)
+                {
+                    Console.ReadKey(true); // Clear the key
+                    break; // Exit the credits early if a key is pressed
+                }
+                Thread.Sleep(500);
+            }
+        }
+        static void menu_options_display()
+        {
+            Console.Clear();
+            WriteCentered("-=Main Menu=-\n");
+            WriteCentered("1. New Game");
+            WriteCentered("2. Continue");
+            WriteCentered("3. Settings");
+            WriteCentered("4. Credits");
+            WriteCentered("5. Exit");
         }
     }
 }

@@ -7,7 +7,7 @@ using Funny_Project.Dialouges;
 
 namespace Funny_Project.Player_Data
 {
-    public partial class Entity(string name, float damage, float Health, float speed, int level)
+    public partial class Entity
     {
         public int Current_XP { get; set; } = 0;
         public int Max_XP { get; set; } = 50;
@@ -17,6 +17,15 @@ namespace Funny_Project.Player_Data
         public float Health { get; set; }
         public float Speed { get; set; }
         public int Level { get; set; }
+
+        public Entity(string name, float damage, float health, float speed, int level)
+        {
+            Name = name;
+            Damage = damage;
+            Health = health;
+            Speed = speed;
+            Level = level;
+        }
 
         public void LevelUp(Entity targetMob)
         {
@@ -89,28 +98,28 @@ namespace Funny_Project.Player_Data
         // ---------- Unique Mob Skills ----------
         public void SlimeSkill()
         {
-            string dialougetxt = $"{name} splits into two smaller slimes!";
+            Console.WriteLine($"{Name} splits into two smaller slimes!");
             Health /= 2; // reduces health when splitting
-            damage /= 2; // smaller slime does less damage
+            Damage /= 2; // smaller slime does less damage
         }
 
         public void OrcSkill()
         {
-            Console.WriteLine($"{name} enters Berserk Mode!");
-            damage *= 1.5f; // increase damage temporarily
-            speed *= 0.8f;  // but slower
+            Console.WriteLine($"{Name} enters Berserk Mode!");
+            Damage *= 1.5f; // increase damage temporarily
+            Speed *= 0.8f;  // but slower
         }
 
         public void OgreSkill()
         {
-            Console.WriteLine($"{name} smashes the ground, stunning enemies!");
-            damage += 10;  // adds bonus damage for the attack
+            Console.WriteLine($"{Name} smashes the ground, stunning enemies!");
+            Damage += 10;  // adds bonus damage for the attack
         }
 
         // ---------------- Info ----------------
         public string Info()
         {
-            return $"{Name} - HP: {Health}, DMG: {Damage}, LVL: {Level}, XP: {Current_XP}/{Max_XP}";
+            return $"{Name} - HP: {Health}, DMG: {Damage}, LVL: {Level}";
         }
 
     }
@@ -121,6 +130,8 @@ namespace Funny_Project.Player_Data
     {
         public string Name { get; private set; }
         public float Health { get; set; }
+        public int SkillPoints { get; private set; } = 2;
+        public const int MaxSkillPoints = 5;
 
         public Entity player_entity { get; private set; }
         public Player(string name)
@@ -136,10 +147,40 @@ namespace Funny_Project.Player_Data
             string p_name = Console.ReadLine();
             return p_name;
         }
-
-        public void Attack(Entity target)
+        public void BasicAttack(Entity target)
         {
             player_entity.Attack(target);
+            if (SkillPoints < MaxSkillPoints)
+                SkillPoints++;
+        }
+
+        public void SkillAttack(Entity target)
+        {
+            if (SkillPoints > 0)
+            {
+                SkillPoints--;
+                float skillDamage = player_entity.Damage * 2f; // Example: double damage
+                target.Health -= skillDamage;
+                if (target.Health < 0) target.Health = 0;
+                Console.WriteLine($"{Name} used a SKILL on {target.Name} for {skillDamage} damage!");
+            }
+            else
+            {
+                Console.WriteLine("❌ Not enough Skill Points!");
+            }
+        }
+
+        public void Heal()
+        {
+            SkillPoints--;
+            float healAmount = 25f;
+            player_entity.Health += healAmount;
+            Console.WriteLine($"{Name} healed for {healAmount} HP!");
+        }
+
+        public string Info()
+        {
+            return $"{Name} - HP: {player_entity.Health}, DMG: {player_entity.Damage}, LVL: {player_entity.Level}";
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿
 
+using Funny_Project.Battles;
+using Funny_Project.Player_Data;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 
@@ -9,6 +11,7 @@ namespace Funny_Project.Engine
     {
         private static void Main(string[] args)
         {
+
             WriteCentered("-=Welcom to XXXXX=-");
 
             WriteCentered("-=Press any key to start=-");
@@ -20,6 +23,7 @@ namespace Funny_Project.Engine
                     Console.Clear();
                     WriteAtBottom("Starting. . .");
                     loading();
+
                     Main_menu();
                     break;
                 }
@@ -99,6 +103,7 @@ namespace Funny_Project.Engine
                     switch (keypress.Key)
                     {
                         case ConsoleKey.D1:
+                            
                             game.New_Game();
 
                             break;

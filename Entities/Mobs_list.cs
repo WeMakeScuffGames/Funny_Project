@@ -9,7 +9,6 @@ namespace Funny_Project.Entities
 {
     internal class Mobs_list
     {
-        
-
+       
     }
 }
