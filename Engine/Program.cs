@@ -3,9 +3,9 @@
 using System.ComponentModel;
 using System.ComponentModel.Design;
 
-namespace Funny_Project
+namespace Funny_Project.Engine
 {
-    internal class Program : Funny_Project.GmaeWorkings
+    internal class Program : GmaeWorkings
     {
         private static void Main(string[] args)
         {
@@ -57,7 +57,7 @@ namespace Funny_Project
                 for (int i = 0; i < 50; i++)
                 {
                     Console.Write(". ");
-                    System.Threading.Thread.Sleep(50);
+                    Thread.Sleep(50);
                 }
             }
 
@@ -72,7 +72,7 @@ namespace Funny_Project
                         Console.ReadKey(true); // Clear the key
                         break; // Exit the credits early if a key is pressed
                     }
-                    System.Threading.Thread.Sleep(500);
+                    Thread.Sleep(500);
                 }
             }
 
@@ -87,7 +87,7 @@ namespace Funny_Project
                 WriteCentered("5. Exit");
             }
 
-            static void Main_menu ()
+            static void Main_menu()
             {
                 var game = new GmaeWorkings();
 
@@ -104,11 +104,11 @@ namespace Funny_Project
                             break;
                         case ConsoleKey.D2:
                             Console.WriteLine("\nContinuing game...");
-                            
+
                             break;
                         case ConsoleKey.D3:
                             Console.WriteLine("\nOpening settings...");
-                            
+
                             break;
                         case ConsoleKey.D4:
                             Console.WriteLine("Showing credits...");
@@ -118,7 +118,7 @@ namespace Funny_Project
                         case ConsoleKey.D5:
                             loading();
                             Console.WriteLine("Exiting...");
-                            return; 
+                            return;
                         default:
                             Console.WriteLine("Invalid selection. Please choose 1-5.");
                             break;

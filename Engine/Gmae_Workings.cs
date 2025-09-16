@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Funny_Project.Dialouges;
 
-namespace Funny_Project
+namespace Funny_Project.Engine
 {
     public partial class GmaeWorkings : Dialouge
     {
@@ -24,7 +24,7 @@ namespace Funny_Project
             for (int i = 0; i < 50; i++)
             {
                 Console.Write(". ");
-                System.Threading.Thread.Sleep(50);
+                Thread.Sleep(50);
             }
         }
         static void WriteAtBottomRight(string text)

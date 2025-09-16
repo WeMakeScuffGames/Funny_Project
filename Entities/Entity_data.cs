@@ -11,28 +11,52 @@ namespace Funny_Project.Player_Data
     {
         public int Current_XP { get; set; } = 0;
         public int Max_XP { get; set; } = 50;
-        public void Leveling_system(float current_xp, float max_xp)
+
+        public string Name { get; set; }
+        public float Damage { get; set; }
+        public float Health { get; set; }
+        public float Speed { get; set; }
+        public int Level { get; set; }
+
+        public void LevelUp(Entity targetMob)
         {
-            
-
-            if (current_xp == max_xp)
+            if (targetMob.Health <= 0)
             {
-                level++;
-                current_xp = 0;
-                max_xp += 100;
-                damage += 5;
-                Health += 20;
-                speed += 0.5f;
-                max_xp = 100 + max_xp * (level / 2f);
+                int expGain = targetMob.Level * 10;
+                Current_XP += expGain;
 
-            } 
-            else if (current_xp > max_xp) //xp overflow
-            {
-                
+                while (Current_XP >= Max_XP)
+                {
+                    Level++;
+                    Current_XP = 0;
+                    Damage += 5;
+                    Health += 20;
+                    Speed += 0.5f;
+                    Max_XP = 100 + (int)(Max_XP * (Level / 2f)); // scaling formula
+
+                    Console.WriteLine($"{Name} leveled up! Now Level {Level} (HP: {Health}, DMG: {Damage}, SPD: {Speed})");
+                }
             }
         }
 
-        //Enemies
+        // ---------------- Attack ----------------
+        public string Attack(Entity targetMob)
+        {
+            targetMob.Health -= Damage;
+            if (targetMob.Health < 0)
+                targetMob.Health = 0;
+
+            if (targetMob.Health == 0)
+            {
+                return $"{Name} defeated {targetMob.Name}!";
+            }
+            else
+            {
+                return $"{Name} attacked {targetMob.Name}. {targetMob.Name}'s health: {targetMob.Health}";
+            }
+        }
+
+        // ------------ Enemies --------------------
 
         public static Entity CreateSlime()
         {
@@ -77,9 +101,13 @@ namespace Funny_Project.Player_Data
         }
     }
 
+
+
     public class Player
     {
         public string Name { get; private set; }
+        public int Health { get; internal set; }
+
         public Entity player_entity;
         public Player(string name)
         {
