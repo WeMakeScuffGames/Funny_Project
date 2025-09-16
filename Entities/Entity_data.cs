@@ -69,7 +69,7 @@ namespace Funny_Project.Player_Data
             target.Health -= this.Damage;
             if (target.Health < 0) target.Health = 0;
 
-            Console.WriteLine($"{Name} attacked {target.Name}! {target.Name}'s health: {target.Health}");
+            Console.WriteLine($"{Name} attacked {target.Name}!");
         }
 
         // ------------ Enemies --------------------

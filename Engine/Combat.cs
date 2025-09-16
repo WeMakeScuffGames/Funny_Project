@@ -89,7 +89,7 @@ namespace Funny_Project.Engine
                     }
                     else
                     {
-                        Console.WriteLine("❌ You have no Skill Points! Defaulting to Basic Attack.");
+                        Console.WriteLine("You have no Skill Points! Defaulting to Basic Attack.");
                     }
                 }
                 else if (actionChoice == "3") // Heal
@@ -116,9 +116,9 @@ namespace Funny_Project.Engine
 
             // ---- Battle End ----
             if (player.player_entity.Health <= 0)
-                Console.WriteLine("💀 You were defeated!");
+                Console.WriteLine("You were defeated!");
             else
-                Console.WriteLine("🎉 You won the battle!");
+                Console.WriteLine("You won the battle!");
         }
     }
 }
